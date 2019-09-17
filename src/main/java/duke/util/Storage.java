@@ -1,6 +1,7 @@
 package duke.util;
 
 import duke.tasks.Deadline;
+import duke.tasks.DoAfter;
 import duke.tasks.Events;
 import duke.tasks.Task;
 import duke.tasks.Todo;
@@ -75,8 +76,18 @@ public class Storage {
                     list.add(tempTodo);
                     break;
                 }
+                case "DA": { //TODO update how to read do after
+                    DoAfter doAfter;
+                    if (hold.length == 3) {
+                        break;
+                    } else {
+                        break;
+                    }
+
+                }
+
                 default: {
-                    continue;
+                    break;
                 }
             }
         }

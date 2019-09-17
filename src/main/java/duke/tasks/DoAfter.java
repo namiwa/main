@@ -25,22 +25,9 @@ public class DoAfter extends Task {
      * Constructor for do after tasks based on time.
      * @param child Current name of do after tasks.
      */
-    public DoAfter(String... child) {
-        super(child[0]);
-        setDateAndTime(child[child.length - 1]);
-    }
-
-    /**
-     * Specific to events, the date data has to be stored
-     * into LocalDateTime object.
-     * @param dateAndTime String date and time associated with the task.
-     */
-    private void setDateAndTime(String dateAndTime) {
-        try {
-            date = DateTimeParser.getStringToDate(dateAndTime);
-        } catch (DukeInvalidTimeException e) {
-            System.out.println(e.getMessage());
-        }
+    public DoAfter(String child, LocalDateTime date) {
+        super(child);
+        this.date = date;
     }
 
     @Override
