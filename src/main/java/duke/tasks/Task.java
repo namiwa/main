@@ -28,7 +28,7 @@ public class Task {
         return task;
     }
 
-    private boolean getDone() {
+    protected boolean getDone() {
         return done;
     }
 
