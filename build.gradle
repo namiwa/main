@@ -48,6 +48,33 @@ dependencies {
 
     // https://mvnrepository.com/artifact/net.sourceforge.argparse4j/argparse4j
     compile group: 'net.sourceforge.argparse4j', name: 'argparse4j', version: '0.8.1'
+
+    String testFxVersion = '4.0.15-alpha'
+    String jUnitVersion = '5.5.0'
+    String javaFxVersion = '11'
+
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-media', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-media', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-media', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-web', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-web', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-web', version: javaFxVersion, classifier: 'linux'
+
+
+    testImplementation group: 'org.testfx', name: 'testfx-core', version: testFxVersion
+    testRuntimeOnly group: 'org.testfx', name: 'openjfx-monocle', version: 'jdk-11+26'
 }
 
 test {
@@ -64,8 +91,9 @@ task coverage(type: JacocoReport) {
         })
     }
     reports {
-        html.enabled = true
-        xml.enabled = true
+        html.enabled = false
+        xml.enabled = false
+        html.destination file("${buildDir}/jacocoHtml")
     }
 }
 
@@ -103,7 +131,7 @@ coveralls {
 
 application {
     // Change this to your main class.
-    mainClassName = "planner.main.CliLauncher"
+    mainClassName = "planner.main.GuiLauncher"
 }
 
 run {

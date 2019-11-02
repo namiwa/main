@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
+import planner.logic.exceptions.legacy.ModCcaScheduleException;
+import planner.logic.exceptions.legacy.ModCommandException;
+import planner.logic.exceptions.legacy.ModEmptyCommandException;
+import planner.logic.exceptions.planner.ModFailedJsonException;
 import planner.logic.modules.legacy.task.Task;
 import planner.logic.modules.module.ModuleTask;
 
@@ -41,15 +45,23 @@ public class PlannerUi {
     }
 
     private void closeScanner() {
-        scan.close();
+
     }
 
-    public String readInput() {
-        return scan.nextLine().strip();
+    /**
+     * Reads user input, checking if there is a valid next line.
+     * @return User input with lead and trailling spaces removed.
+     * @throws ModCommandException If there is not valid next line to the user input.
+     */
+    public String readInput() throws ModCommandException {
+        if (scan.hasNext()) {
+            return scan.nextLine().strip();
+        }
+        throw new ModCommandException();
     }
 
-    public String readPassword() {
-        return this.readInput(); // No good way to do this yet
+    private String readPassword() {
+        return scan.nextLine().strip(); // No good way to do this yet
     }
 
     /**
@@ -59,7 +71,7 @@ public class PlannerUi {
     public boolean confirm() {
         boolean result = true;
         while (result) {
-            String input = this.readInput();
+            String input = this.readPassword();
             if (yes.contains(input)) {
                 break;
             } else if (no.contains(input)) {
@@ -84,7 +96,7 @@ public class PlannerUi {
         if (secure) {
             input = this.readPassword();
         } else {
-            input = this.readInput();
+            input = this.readPassword();
         }
         while (!allowEmpty && input.isBlank()) {
             input = this.invalidResponsePrompt(false, secure);

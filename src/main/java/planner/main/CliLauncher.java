@@ -71,7 +71,7 @@ public class CliLauncher {
     /**
      * Setup data files for module data and logging.
      */
-    private void modSetup() {
+    public void modSetup() {
         try {
             modDetailedMap = jsonWrapper.getModuleDetailedMap(true, store);
             modTasks.setTasks(jsonWrapper.readJsonTaskList(store));
@@ -94,15 +94,13 @@ public class CliLauncher {
         }
     }
 
+
+    //Sort out the handling of inputs somehow, to make room for both ui and gui
     private boolean handleInput() {
         try {
             String input = modUi.readInput();
-            ModuleCommand c = argparser.parseCommand(input);
-            if (c != null) {
-                c.execute(modDetailedMap, modTasks, ccas, modUi, store, jsonWrapper);
-                if (c instanceof EndCommand) {
-                    return false;
-                }
+            if (readInput(input)) {
+                return false;
             }
         } catch (ModException e) {
             System.out.println(e.getMessage());
@@ -113,6 +111,29 @@ public class CliLauncher {
         return true;
     }
 
+    private void handleInput(String input) {
+        try {
+            readInput(input);
+        } catch (ModException e) {
+            System.out.println(e.getMessage());
+            PlannerLogger.log(e);
+        } finally {
+            modUi.showLine();
+        }
+    }
+
+
+    private boolean readInput(String input) throws ModException {
+        ModuleCommand c = argparser.parseCommand(input);
+        if (c != null) {
+            c.execute(modDetailedMap, modTasks, ccas, modUi, store, jsonWrapper);
+            if (c instanceof EndCommand) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Get output from commands.
      * @param input user input
@@ -121,7 +142,7 @@ public class CliLauncher {
     public String getResponse(String input) {
         if (input != null) {
             this.output.reset();
-            this.handleInput();
+            this.handleInput(input);
         }
         return this.output.toString();
     }

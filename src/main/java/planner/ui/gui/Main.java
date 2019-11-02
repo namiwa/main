@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import planner.main.CliLauncher;
+import planner.util.logger.PlannerLogger;
 
 /**
  * A GUI for Duke using FXML.
@@ -26,9 +27,13 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDuke(this.planner);
+            planner.modSetup();
             stage.show();
         } catch (IOException e) {
             e.getCause().getCause().printStackTrace();
+            PlannerLogger.log(e);
         }
+
+
     }
 }
