@@ -230,7 +230,6 @@ public class PlannerUi {
                  + "Your data will be stored in file shortly!\n"
         );
         showLine();
-        closeScanner();
     }
 
     /**

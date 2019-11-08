@@ -11,6 +11,7 @@ import java.util.Timer;
 import planner.credential.user.User;
 import planner.logic.command.EndCommand;
 import planner.logic.command.ModuleCommand;
+import planner.logic.exceptions.legacy.ModEmptyCommandException;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.planner.ModFailedJsonException;
 import planner.logic.modules.module.ModuleInfoDetailed;

@@ -192,10 +192,9 @@ public class Parser {
         gradeParser.addArgument("letterGrade")
             .help("Grade you achieved for this module");
 
-        getSubParser("update")
+       getSubParser("update")
                 .help("Update modules database")
-                .addArgument("academicYear")
-                .help("Academic year of your choice, in format 2018-2019");
+                .addArgument("module");
 
         getSubParser("reminder")
                 .help("Setting reminders")

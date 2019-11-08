@@ -27,7 +27,7 @@ public class EndCommand extends ModuleCommand {
         //Runtime.getRuntime().halt(0); //Forced kill
     }
 
-    private void killAllTimers() {
+    public static void killAllTimers() {
         for (Timer timer: CliLauncher.timerPool) {
             timer.cancel();
         }
